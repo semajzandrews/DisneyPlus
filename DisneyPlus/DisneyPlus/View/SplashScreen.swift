@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SplashScreen: View {
     
+    @State var startAnimation = false
+    @State var bowAnimation = false
+    
     var body: some View {
         
         ZStack {
@@ -21,7 +24,7 @@ struct SplashScreen: View {
                 ZStack {
                     
                     Circle()
-                        .trim(from: 0, to: 0.5)
+                        .trim(from: 0, to: bowAnimation ? 0.5 : 0)
                         .stroke(
                             .linearGradient(.init(colors:
                                                     [Color("Gradient1"),
@@ -38,7 +41,7 @@ struct SplashScreen: View {
                             
                             
                         )
-                        .frame(width: size.width / 1.9, height: size.width / 1.9)
+                        .frame(width: size.width / 2, height: size.width / 2)
                         .rotationEffect(.init(degrees: -200))
                         .offset(y: 10)
                         
@@ -68,6 +71,18 @@ struct SplashScreen: View {
                 
             }
         }
+        .onAppear {
+            
+            // DELAY FOR 3 SECONDS
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                withAnimation(.linear(duration: 2)){
+                    bowAnimation.toggle()
+                }
+            }
+            
+        }
+ 
+        
     }
 }
 
